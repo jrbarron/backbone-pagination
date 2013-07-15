@@ -62,12 +62,7 @@
     url: function() {
 
       // Generate the preceding base of the url.
-      var base = "";
-      if (typeof this.baseUrl === 'function') {
-        base += this.baseUrl();
-      } else if (typeof this.baseUrl !== 'undefined') {
-        base += this.baseUrl;
-      }
+      var base = _.result(this, 'baseUrl');
 
       var currentPage = (this.paginationConfig.skip)
             ? ((this.currentPage - 1) * this.paginationConfig.ipp)
