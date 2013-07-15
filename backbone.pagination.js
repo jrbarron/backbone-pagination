@@ -33,6 +33,7 @@
     // Pagination configuration can be overwritten anytime.
     paginationConfig: {
       pretty:       false,  // enable pretty urls url/page/2/ipp/20
+      skip:         false,  // enable skip mode where page - 1 is multipled by ipp
       ipp:          20,     // items per page
       page_attr:    'page',
       ipp_attr:     'ipp',  // will result in a query like page=4&ipp=20
@@ -68,15 +69,19 @@
         base += this.baseUrl;
       }
 
+      var currentPage = (this.paginationConfig.skip)
+            ? ((this.currentPage - 1) * this.paginationConfig.ipp)
+            : this.currentPage;
+
       if (this.paginationConfig.pretty) {
         return base + '/'
-          + this.paginationConfig.page_attr + '/' + this.currentPage + '/'
+          + this.paginationConfig.page_attr + '/' + currentPage + '/'
           + this.paginationConfig.ipp_attr + '/' + this.paginationConfig.ipp;
       }
 
       // Add the pagination params to the url.
       var params = {};
-      params[this.paginationConfig.page_attr] = this.currentPage;
+      params[this.paginationConfig.page_attr] = currentPage;
       params[this.paginationConfig.ipp_attr]  = this.paginationConfig.ipp;
       return base + ((base.indexOf('?') === -1) ? '?' : '&') + $.param(params);
     }

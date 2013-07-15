@@ -104,6 +104,7 @@ Configure the url params and items-per-page count at any time by setting the ```
 // default configuration
 someCollection.paginationConfig = {
     pretty:       false,  // use pretty url params instead of query params
+      skip:         false,  // enable skip mode where page - 1 is multipled by ipp
   	ipp:          25,     // items per page
   	page_attr:    'page', // the query's page attribute
    	ipp_attr:     'ipp',  // the query's ipp attribute
@@ -112,6 +113,8 @@ someCollection.paginationConfig = {
 ```
 
 If the ```pretty``` attribute is set to ```true``` the resulting api call will result in ```/baseUrl/page/3/ipp/25``` instead of ```/baseUrl?page=3&ipp=25```.
+
+If the ```skip```attribute is set to ```true``` the resulting api call will result in ```/baseUrl?page=50&ipp=25```.
 
 The ```fetchOptions``` attribute holds options, that will be passed to the ```Backbone.Collection.fetch()``` method. For example, if ```paginationConfig.fetchOptions.add``` is set to ```true```, then new items will be appended to the collection. ```false``` will replace the collection's items with any new items fetched. You can also define ```success``` and ```error``` callbacks. See the [Backbone.Collection.fetch() method's documentation](http://backbonejs.org/#Collection-fetch).
 
